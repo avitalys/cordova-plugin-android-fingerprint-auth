@@ -102,7 +102,8 @@ public class FingerprintAuth extends CordovaPlugin {
         MISSING_ACTION_PARAMETERS,
         MISSING_PARAMETERS,
         NO_SUCH_ALGORITHM_EXCEPTION,
-        SECURITY_EXCEPTION
+        SECURITY_EXCEPTION,
+	LOW_SECURITY_PATCH
     }
 
     public PluginAction mAction;
