@@ -125,6 +125,7 @@ public class FingerprintAuth extends CordovaPlugin {
     public static boolean mDisableBackup = false;
     public static int mMaxAttempts = 6;  // one more than the device default to prevent a 2nd callback
     private String mLangCode = "en_US";
+    private static boolean mUserAuthRequired = false;
     public static String mDialogTitle;
     public static String mDialogMessage;
     public static String mDialogHint;
@@ -314,6 +315,9 @@ public class FingerprintAuth extends CordovaPlugin {
                             mMaxAttempts = maxAttempts;
                         }
                     }
+                    if (arg_object.has("userAuthRequired")) {
+                        mUserAuthRequired = arg_object.getBoolean("userAuthRequired");
+                    }
                     if (arg_object.has("dialogTitle")) {
                         mDialogTitle = arg_object.getString("dialogTitle");
                     }
@@ -412,11 +416,18 @@ public class FingerprintAuth extends CordovaPlugin {
                     boolean ivDeleted = false;
                     boolean secretKeyDeleted = false;
                     try {
+                        mKeyStore.load(null);
                         mKeyStore.deleteEntry(mClientId);
                         secretKeyDeleted = true;
                         ivDeleted = deleteIV();
                     } catch (KeyStoreException e) {
-                        Log.e(TAG, "Error while deleting SecretKey.");
+                        Log.e(TAG, "Error while deleting SecretKey.", e);
+                    } catch (CertificateException e) {
+                        Log.e(TAG, "Error while deleting SecretKey.", e);
+                    } catch (NoSuchAlgorithmException e) {
+                        Log.e(TAG, "Error while deleting SecretKey.", e);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Error while deleting SecretKey.", e);
                     }
 
                     if (ivDeleted && secretKeyDeleted) {
@@ -575,7 +586,7 @@ public class FingerprintAuth extends CordovaPlugin {
             mKeyGenerator.init(new KeyGenParameterSpec.Builder(mClientId,
                     KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                    .setUserAuthenticationRequired(false)
+                    .setUserAuthenticationRequired(mUserAuthRequired)
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
                     .build());
             mKeyGenerator.generateKey();

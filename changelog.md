@@ -1,3 +1,27 @@
+# Version 1.4.4
+### What's New
+* Added Arabic translations
+    * merged pull request #114
+* Bug fix: KeyStore not initialized when trying to delete entry
+    * merged pull request #106
+
+# Version 1.4.3
+### What's New
+* Added Thai translations
+    * merged pull request #102
+
+
+# Version 1.4.2
+### What's New
+* Feature request for issue #100
+    * added back the `userAuthRequired` param but set default to `false`
+
+# Version 1.4.1
+### What's New
+* **Bug fix** for issue #98
+    * Use `resource-file` tag for resources instead of `source-file`
+
+
 # Version 1.4.0
 ### What's New
 * new parameter `encryptNoAuth`
