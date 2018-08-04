@@ -1,6 +1,6 @@
 This repo was forked from [mjwheatley/cordova-plugin-android-fingerprint-auth](https://github.com/mjwheatley/cordova-plugin-android-fingerprint-auth)
 and contains the following changes:
-* Security version check before enabling fingerprint auth.
+* Check for Security Version from October 1st 2016, or later, before enabling fingerprint auth.
 
 # Update to Version 1.4.0
 Please consult the [changelog](https://github.com/mjwheatley/cordova-plugin-android-fingerprint-auth/blob/master/changelog.md).
