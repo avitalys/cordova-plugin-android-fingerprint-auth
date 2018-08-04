@@ -204,27 +204,27 @@ public class FingerprintAuth extends CordovaPlugin {
             return true;
         }
 
-		if (android.os.Build.VERSION.SDK_INT < 25) {
-			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date devicePatch = sdf.parse(android.os.Build.VERSION.SECURITY_PATCH);
-				Date targetPatch = sdf.parse("2016-10-01");
-
-				if (devicePatch.before(targetPatch)) {
-					Log.e(TAG, "minimum security patch required is 1.10.2016");
-					mPluginResult = new PluginResult(PluginResult.Status.ERROR);
-					mCallbackContext.error(PluginError.LOW_SECURITY_PATCH.name());
-					mCallbackContext.sendPluginResult(mPluginResult);
-					return true;
-				}
-			} catch (java.text.ParseException e) {
-				Log.e(TAG, "ParseException: minimum security patch required is 1.10.2016");
-				mPluginResult = new PluginResult(PluginResult.Status.ERROR);
-				mCallbackContext.error(PluginError.LOW_SECURITY_PATCH.name());
-				mCallbackContext.sendPluginResult(mPluginResult);
-				return true;
-			}
-		}
+        if (android.os.Build.VERSION.SDK_INT < 25) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date devicePatch = sdf.parse(android.os.Build.VERSION.SECURITY_PATCH);
+                Date targetPatch = sdf.parse("2016-10-01");
+                
+                if (devicePatch.before(targetPatch)) {
+		    Log.e(TAG, "minimum security patch required is 1.10.2016");
+		    mPluginResult = new PluginResult(PluginResult.Status.ERROR);
+		    mCallbackContext.error(PluginError.LOW_SECURITY_PATCH.name());
+		    mCallbackContext.sendPluginResult(mPluginResult);
+		    return true;
+                }
+            } catch (java.text.ParseException e) {
+                Log.e(TAG, "ParseException: minimum security patch required is 1.10.2016");
+                mPluginResult = new PluginResult(PluginResult.Status.ERROR);
+                mCallbackContext.error(PluginError.LOW_SECURITY_PATCH.name());
+                mCallbackContext.sendPluginResult(mPluginResult);
+                return true;
+            }
+        }
 
         Log.v(TAG, "FingerprintAuth action: " + action);
         if (action.equals("availability")) {
